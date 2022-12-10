@@ -21,7 +21,9 @@
     <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
     <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
   </div>
-    Congrats you manage to connect !
-</h1>
+    Congrats {{ user.get_username }}! You managed to connect !
+    {%  if user.is_authenticated %}
+        <p>Vous êtes connecté en tant que {{ request.user }} {% url 'login' %}. <a href="{% url 'logout' %}">Se déconnecter</a></p>
+    {% endif %}
 
 {% endblock %}

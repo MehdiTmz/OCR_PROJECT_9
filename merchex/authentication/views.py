@@ -4,8 +4,13 @@ from django.template import loader
 from django.contrib.auth import login, logout, authenticate # import des fonctions login et authenticate
 from . import forms
 from django.views.generic import View
+from django.shortcuts import redirect
 
 # Create your views here.
+def logout_user(request):
+    
+    logout(request)
+    return redirect('authentication/logout')
 
 def hello(request):
     return render(request, 'authentication/hello.html')
@@ -28,6 +33,6 @@ class LoginPageView(View):
             )
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('authentication/logout')
         message = 'Identifiants invalides.'
         return render(request, self.template_name, context={'form': form, 'message': message})
