@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate # import des fonctio
 from . import forms
 from django.views.generic import View
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def logout_user(request):
@@ -12,8 +13,20 @@ def logout_user(request):
     logout(request)
     return redirect('authentication/logout')
 
+@login_required
 def hello(request):
     return render(request, 'authentication/hello.html')
+
+def signup_page(request):
+    form = forms.SignupForm()
+    if request.method == 'POST':
+        form = forms.SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            #auto-login user
+            login(request, user)
+            return redirect('/login.html')
+    return render(request, 'authentication/signup.html', context={'form': form})
 
 class LoginPageView(View):
     template_name = 'authentication/login.html'

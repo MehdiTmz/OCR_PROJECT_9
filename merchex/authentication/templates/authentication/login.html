@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>Vous êtes déconnecté</p>
+    <p>{{ message }}</p>
+    
+    <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column mb-3">
+            <div class="col-6 align-self-center">
+                <form method="post">
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <button type="submit" >Se connecter</button>
+                </form>
+                <p>
+                    Pas encore membre ? <br>
+                    <a href="{% url 'signup' %}">Inscrivez-vous maintenant !</a>
+                </p>
+              </div>
 
+        </div>
+    </div>
+
+    
 {% endblock content %}

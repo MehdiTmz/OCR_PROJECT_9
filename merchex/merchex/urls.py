@@ -21,11 +21,7 @@ import authentication.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', views.hello),
-    path('index/', views.index),
-    path('sign_in/', views.sign_in),
-    path('flux/', views.flux),
     path('authentication/', include('django.contrib.auth.urls')),
     path('authentication/', include('authentication.urls')),
-    path('', authentication.views.LoginPageView.as_view(), name='login'),
+    #path('', authentication.views.LoginPageView.as_view(), name='login'),
 ]
